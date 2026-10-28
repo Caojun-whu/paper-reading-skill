@@ -1,0 +1,11 @@
+# Local preferences and credentials
+profile.md
+.env
+.env.*
+!.env.example
+
+# Python and OS artifacts
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
