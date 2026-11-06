@@ -75,7 +75,17 @@ python3 .agents/skills/paper-reading/scripts/fetch_paper.py 2410.24164 --dest '�
 python3 .agents/skills/paper-reading/scripts/fetch_paper.py '论文名称' --code 'https://github.com/author/official-repo'
 ```
 
-图表自动裁剪并不总是准确：必须检查 PDF 原页和 `figures/_contact.png`；必要时使用 `scripts/crop.py` 手工裁图。
+图直接使用 LaTeX 引用的原始文件，不从论文页面截图。`figures/index.md` 记录原图路径、图注、label 和源文件位置；组合图同时保留完整 figure 环境，避免漏掉子图标记或正文式注释。
+
+表格保留完整 LaTeX 环境及宏定义位置，见 `tables/index.md`。讲解时按需整理成 Markdown，保留多级表头、单位、缺失值和脚注；复杂表不默认自动转换或截图。关键数值与实际编号仍以原 PDF 交叉核对。
+
+已有论文只更新图表索引，无需重新下载：
+
+```bash
+python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
+```
+
+此命令仅生成源码索引和阅读片段，不修改原始图片。没有 LaTeX 或独立图文件时如实标记；需要在聊天中展示独立 PDF 原图时，可完整渲染该文件，不截取论文页面。
 
 论文名称来源于真实标题或常用简称，Agent 自行确定并作为 `--dest` 参数传入。已有论文目录原样复用，不覆盖笔记。未提供可确认的官方实现时，应如实说明。
 
@@ -83,8 +93,7 @@ python3 .agents/skills/paper-reading/scripts/fetch_paper.py '论文名称' --cod
 
 - `SKILL.md`：六站阅读流程、材料核对与断点续读规则。
 - `scripts/fetch_paper.py`：准备 PDF、文本、LaTeX、图表与已核实的官方代码。
-- `scripts/extract_figures.py`：按图表 caption 自动生成候选裁图，需要人工核对。
-- `scripts/crop.py`：按 PDF 页码与相对坐标手动裁图。
+- `scripts/extract_figures.py`：索引 LaTeX 原始图资源和表格环境，保留源码位置与宏上下文，不截图。
 - `references/notes-template.md`：精读笔记模板。
 - `profile.example.md`：可公开分享的通用阅读偏好。
 

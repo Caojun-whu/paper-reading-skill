@@ -262,7 +262,7 @@ def main():
     p.add_argument('--code', help='已核实的官方 GitHub/GitLab 仓库 URL')
     p.add_argument('--no-tex', action='store_true', help='跳过 LaTeX（默认尝试）')
     p.add_argument('--no-code', action='store_true', help='跳过 code（默认尽可能发现）')
-    p.add_argument('--no-figures', action='store_true', help='跳过自动裁图（默认尝试）')
+    p.add_argument('--no-figures', action='store_true', help='跳过 LaTeX 图资源和表格源码索引')
     a = p.parse_args()
     kind, src, slug, arxiv = identify(a.paper)
     if a.dest is None and kind != 'directory':
@@ -296,13 +296,14 @@ def main():
     if not paper_txt.exists():
         paper_txt.write_text(''.join(f'\n===== PDF page {i + 1} =====\n{text}\n' for i, text in enumerate(pages)), encoding='utf-8')
     tex_status = '已跳过' if a.no_tex else fetch_latex(arxiv, dest)
-    figure_status = '已跳过'
+    visual_status = {'figures_status': '已跳过', 'tables_status': '已跳过'}
     if not a.no_figures:
         try:
-            from extract_figures import extract_figures
-            figure_status = extract_figures(pdf, dest / 'figures')
+            from extract_figures import source_index
+            visual_status = source_index(dest)
         except Exception as e:
-            figure_status = f'裁图失败（可手动裁）：{e}'
+            visual_status = {'figures_status': f'LaTeX 资源索引失败，需检查 source/：{e}',
+                             'tables_status': '源码索引失败，需阅读原始 LaTeX 与 PDF'}
     candidates = code_candidates(pages)
     code_url = a.code or previous_meta.get('code_url')
     if a.no_code:
@@ -320,7 +321,7 @@ def main():
     meta.update({
         'source_input': a.paper, 'arxiv_id': arxiv, 'pdf_title': title,
         'pdf_pages': len(pages), 'latex_status': tex_status,
-        'figures_status': figure_status, 'code_status': code_status,
+        **visual_status, 'visual_material_mode': 'latex_source', 'code_status': code_status,
         'code_url': code_url, 'code_link_candidates': candidates,
         'checked_at_utc': datetime.now(timezone.utc).isoformat(),
     })
@@ -328,11 +329,12 @@ def main():
     print('论文目录：' + str(dest))
     print(f'PDF：{len(pages)} 页；文本：{paper_txt.name}')
     print('LaTeX：' + tex_status)
-    print('图表：' + figure_status)
+    print('图：' + visual_status['figures_status'])
+    print('表：' + visual_status['tables_status'])
     print('代码：' + code_status)
     if candidates:
         print('论文中发现的候选代码链接（尚未核实官方性）：' + '；'.join(candidates))
-    print('下一步：检查 figures/_contact.png，确认裁图无误后再讲解；未找到的代码请另查官方来源。')
+    print('下一步：从 figures/index.md 查看原始图资源，从 tables/index.md 阅读表格源码；以 PDF 核对编号、上下文与关键数值。')
 
 
 if __name__ == '__main__':
