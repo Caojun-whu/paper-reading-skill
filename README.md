@@ -137,6 +137,7 @@ cp .agents/skills/paper-reading/profile.example.md \
 - [references/six-stations.md](references/six-stations.md)：六站详细教学标准。
 - [references/notes-template.md](references/notes-template.md)：精读笔记模板。
 - [profile.example.md](profile.example.md)：通用阅读偏好。
+- [evals/materials-acquisition.md](evals/materials-acquisition.md)：针对 arXiv 源码和非 GitHub 官方代码的人工回归验收案例。
 - `scripts/`：可选的 PDF/LaTeX/图表辅助处理工具。
 
 ## 许可与致谢
