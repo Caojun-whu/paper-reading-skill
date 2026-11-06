@@ -92,7 +92,7 @@ python3 .agents/skills/paper-reading/scripts/fetch_paper.py \
 
 ```bash
 python3 .agents/skills/paper-reading/scripts/fetch_paper.py \
-  "论文简称" --code "https://github.com/author/official-repo"
+  "论文简称" --code "https://github.com/author/official-repo" --no-tex --no-figures
 ```
 
 所有自动裁剪图必须与 PDF 原页核对。若生成 `figures/_contact.pdf`，还应检查其中的后续页，不能只看 `_contact.png`。无需裁图时直接使用 PDF 视觉工具即可。
