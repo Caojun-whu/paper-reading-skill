@@ -10,7 +10,17 @@
 
 ## 基本信息与材料状态
 - 一句话：问题 / 输入 → 方法 → 输出 / 目标
-- PDF / LaTeX / 图表 / 官方代码 / 数据：已取得、已核实、缺失或未检查的状态
+- **资料获取记录（完整精读检查 PDF、LaTeX、官方代码、全文图表）**：
+  - PDF：来源 URL / 实际保存路径 / 已核实状态或错误
+  - LaTeX 原始源码：TeX Source 来源 URL / `source/` 实际文件 / 已核实状态或错误
+  - 官方代码：论文/作者佐证及版本 / GitHub、GitLab、Figshare、Zenodo、OSF 等来源 URL / `code/` 实际文件 / 已核实状态或错误
+  - 图：`figures/index.md`，正文与附录 Figure 的预期数 / 已保存数 / 已核验数 / 缺失编号与原因
+  - 表：`tables/index.md`，正文与附录 Table 的预期数 / 已保存数 / 已核验数 / 缺失编号与原因
+  - 数据：已取得、待核实、下载受限或不适用（不默认下载大型数据集）
+- 状态值建议：`saved`（实际文件已检查）/ `unavailable`（未公开或未找到）/ `failed`（有链接但下载失败）/ `unverified`（来源或文件尚未确认）/ `skipped-by-user`（用户选择不获取）；不得把“有网页链接”当成已保存。
+- 关键图表索引（可指向图表目录索引；不能替代单独文件核验）：
+  - Figure：原编号、caption、PDF 实际页码（从 1 开始）、PNG 路径、`verified` / `needs-review` / `failed`
+  - Table：原编号、caption、PDF 实际页码、PNG/核实后的 Markdown/CSV 路径、`verified` / `needs-review` / `failed`
 - 关键来源位置（PDF 页码 / 图 / 表 / 公式 / 代码路径）：
 - 尚未核实：
 
