@@ -59,7 +59,7 @@ python3 <skill>/scripts/fetch_paper.py "<arXiv ID/URL、PDF URL 或本地 PDF>" 
 仅当已独立核实官方代码身份，并且确实需要在可写目录中保留代码时，才执行：
 
 ```bash
-python3 <skill>/scripts/fetch_paper.py "论文简称" --code "https://github.com/author/official-repo"
+python3 <skill>/scripts/fetch_paper.py "论文简称" --code "https://github.com/author/official-repo" --no-tex --no-figures
 ```
 
 若当前工具可以直接浏览仓库，无须下载或克隆。脚本不会自动执行仓库代码；不要为了阅读而安装论文环境、运行训练/推理或下载大权重。
