@@ -1,8 +1,8 @@
 # Paper Reading Skill
 
-适用于 Codex 桌面应用的六站式论文精读 Skill，参考 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading)。
+适用于 Codex 桌面应用的七站式论文精读 Skill，参考 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading)。
 
-按 **动机 → 架构 → 训练 → 数据 → 信息流 → 具体案例** 逐站交互讲解，交叉核对 PDF、LaTeX、图表与可核实的官方代码，并保存可跨会话继续的精读笔记。默认不运行论文代码或复现实验。
+按 **动机 → 架构 → 训练 → 数据 → 信息流 → 具体案例 → 实验与结果** 逐站交互讲解，交叉核对 PDF、LaTeX、图表与可核实的官方代码，并保存可跨会话继续的精读笔记。默认不运行论文代码或复现实验。
 
 ## 环境
 
@@ -58,7 +58,13 @@ cp .agents/skills/paper-reading/profile.example.md .agents/skills/paper-reading/
 
 或：`使用 $paper-reading，继续刚才的 Geo2Vec。`
 
-会尽可能获取 **PDF、LaTeX、图表、官方代码**，先核实材料，再按 **动机 → 架构 → 训练 → 数据 → 信息流 → 具体案例** 六站交互讲解。默认不运行官方代码或复现实验。
+会尽可能获取 **PDF、LaTeX、图表、官方代码**，先核实材料，再按 **动机 → 架构 → 训练 → 数据 → 信息流 → 具体案例 → 实验与结果** 七站交互讲解。默认不运行官方代码或复现实验。
+
+## 第⑦站：实验与结果
+
+第⑦站为必读：先梳理论文实际开展的实验及各自目的，再逐组讲清 **实验如何设计、用了哪些数据集及划分、比较了哪些 baseline、采用哪些指标与评测设置、得到了什么具体结果**，最后评估实验能否支持作者的核心主张。主实验、消融、泛化、鲁棒性、效率和失败案例等按论文实际报告的范围讲解；内容多时在本节内分多轮推进。
+
+实验表格优先从 `tables/index.md` 定位原始 LaTeX 表格及宏上下文，保留多级表头、合并单元格、单位、脚注和缺失值，并与 PDF 核对编号及重要数值；实验曲线和可视化优先使用 `figures/index.md` 对应的 LaTeX 原始图资源，**不从论文 PDF 截图或裁图替代原图**。缺少源码则据 PDF 明确标注页码，不虚构结果或对应关系。重要结论标注【论文】【官方代码】【分析】，并记录到精读笔记。
 
 ## 脚本（Agent 可以自动执行）
 
@@ -91,7 +97,7 @@ python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
 
 ## 文件说明
 
-- `SKILL.md`：六站阅读流程、材料核对与断点续读规则。
+- `SKILL.md`：七站阅读流程、材料核对与断点续读规则。
 - `scripts/fetch_paper.py`：准备 PDF、文本、LaTeX、图表与已核实的官方代码。
 - `scripts/extract_figures.py`：索引 LaTeX 原始图资源和表格环境，保留源码位置与宏上下文，不截图。
 - `references/notes-template.md`：精读笔记模板。
@@ -99,4 +105,4 @@ python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
 
 ## 许可与致谢
 
-本项目采用 [MIT License](LICENSE)，保留原项目的版权声明。感谢 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading) 提供的六站精读及多材料核对思路；此版本针对 Codex 本地项目的材料存储、交互和续读流程做了适配。
+本项目采用 [MIT License](LICENSE)，保留原项目的版权声明。感谢 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading) 提供的七站精读及多材料核对思路；此版本针对 Codex 本地项目的材料存储、交互和续读流程做了适配。
