@@ -31,7 +31,7 @@ python3 -m pip install -r .agents/skills/paper-reading/requirements.txt
 │           ├── profile.example.md
 │           ├── references/
 │           └── scripts/
-└── <论文名称>/       # 读新论文时由 Agent 创建
+└── <论文名称>/       # 读新论文时由 Agent 创建，⑤站生成独立 HTML
 ```
 
 Skill 的安装目录与论文资料目录是两件事。**每篇论文直接建在当前项目下**，不另外套一层 `papers/`。
@@ -59,6 +59,16 @@ cp .agents/skills/paper-reading/profile.example.md .agents/skills/paper-reading/
 或：`使用 $paper-reading，继续刚才的 Geo2Vec。`
 
 会尽可能获取 **PDF、LaTeX、图表、官方代码**，先核实材料，再按 **动机 → 架构 → 训练 → 数据 → 信息流 → 具体案例 → 实验与结果** 七站交互讲解。默认不运行官方代码或复现实验。
+
+## 第⑤站：交互式信息流与维度可视化
+
+阅读到第⑤站时，Agent 除了讲解输入如何经过各个模块，还应在当前论文目录生成 **`信息流与维度可视化.html`**。直接双击即可在浏览器打开；这是针对**当前论文**创作的单文件交互式讲解，不需要启动本地服务器或安装 React 项目。
+
+**形式由 AI 根据论文机制自主设计**，不限定统一的流程图模板：例如 CNN 的特征图尺度变化、Transformer 注意力矩阵、多模态数据的并行路径与融合、GNN 的消息传播或扩散模型的去噪迭代。鼓励有教学意义的动态演示、清晰生动的视觉隐喻、局部展开与逐步播放；若 2D 更易理解就用 SVG/Canvas，确有必要才采用 Three.js/WebGL。**美观不能牺牲机制和维度的准确性**。
+
+页面至少包含：整体执行路径、逐步/暂停/前后步/重置控制、可查看模块细节的交互、关键张量名称与完整 shape、维度流转表、论文/官方代码依据及未知项标记；训练/推理分支、循环与缓存等按论文实际机制展示。若使用示意数值、非等比例形状或高维张量投影，需显式说明。生成的图是教学示意，**不替代论文原始图表，也不从 PDF 页面截图或裁图**。
+
+单文件应内嵌 HTML/CSS/JavaScript、数据和必需依赖，不依赖在线 CDN、外部请求或 `file://` 下受限的资源加载；如果需要 Three.js，应将所需代码合法地内嵌或改用原生 SVG/Canvas。Agent 应检查生成文件能否离线打开、交互是否工作，并把路径及待核验维度记入笔记；无法测试时注明测试限制。详细设计与验收规范见 [flow-visualization-guide.md](references/flow-visualization-guide.md)。
 
 ## 第⑦站：实验与结果
 
@@ -101,6 +111,7 @@ python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
 - `scripts/fetch_paper.py`：准备 PDF、文本、LaTeX、图表与已核实的官方代码。
 - `scripts/extract_figures.py`：索引 LaTeX 原始图资源和表格环境，保留源码位置与宏上下文，不截图。
 - `references/notes-template.md`：精读笔记模板。
+- `references/flow-visualization-guide.md`：第⑤站交互式 HTML 的选型、视觉规范与离线验收说明。
 - `profile.example.md`：可公开分享的通用阅读偏好。
 
 ## 许可与致谢
