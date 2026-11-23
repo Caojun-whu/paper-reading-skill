@@ -2,7 +2,7 @@
 
 适用于 Codex 桌面应用的**按需论文阅读与问答** Skill，参考 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading)。
 
-保留原有 PDF、LaTeX、原始图表和官方代码的下载、索引与核验能力。**你想问架构就讲架构，想问公式、数据、训练或实验就直接查对应材料回答。** 不再强制六站、前置全景导读或交互 HTML；复用已有论文资料，默认不运行论文代码或复现实验。
+提供 PDF、LaTeX、原始图表与官方代码的获取、索引和核验。**围绕你的问题，结合论文原文、图表和代码解释架构、公式、训练、数据与实验。** 支持复用已有论文资料与按需生成交互计算可视化。
 
 ## 环境
 
@@ -58,17 +58,17 @@ cp .agents/skills/paper-reading/profile.example.md .agents/skills/paper-reading/
 
 或：`使用 $paper-reading，对着 GeoVec-VLM 的图 2 解释空间对象怎样形成。`
 
-会尽可能获取或复用 **PDF、LaTeX、原始图表、官方代码**，之后直接解答当前问题；只问下载就只准备材料，不自动安排阅读步骤。
+会检查并复用已有 **PDF、LaTeX、原始图表和官方代码**，补齐缺失材料，再依据你的具体问题查证和讲解。
 
 ## 用户自由提问
 
-**没有必走的六站，也不强制首轮导读。** 你可以直接问研究动机、原论文某张图、一个模块的输入输出、某项 Loss、数据样本、Batch 信息流、实验表或对应代码。回答时优先解释作用与为什么，再用原论文图和具体数字说明；真实数字与示意计算分开标注。
+你可以直接问研究动机、原论文某张图、模块的输入输出、某项 Loss、数据样本、Batch 信息流、实验表或对应代码。回答时先解释作用与原因，再结合原论文图、公式和具体数字展开；真实数字与示意计算分开标注。
 
-用户只提供论文链接而没提出具体问题时，可以先准备材料并简要报告论文身份与研究主题，然后由你决定下一问。**新聊天复用已有论文目录与笔记，不依旧站点进度推进，也不重复下载已有文件。**
+提供论文链接后，可以先准备材料并简要了解论文身份与研究主题，再继续提出感兴趣的问题。新聊天可复用已有论文目录、原始资料和阅读笔记。
 
 ## 可选的交互计算 HTML
 
-只有**明确要求生成/编辑交互式 HTML、动画信息流**时，才按 [flow-visualization-guide.md](references/flow-visualization-guide.md) 生成独立、离线的 `信息流与维度可视化.html`。普通询问信息流或要求举数字例子，直接在聊天中展示文字流程/示意图和计算步骤，不默认制作文件。
+需要**交互式 HTML 或动画计算演示**时，按照 [flow-visualization-guide.md](references/flow-visualization-guide.md) 生成独立、离线的 `信息流与维度可视化.html`。信息流解释和数值例子也可以直接在聊天中以流程图、示意图和计算步骤呈现。
 
 ## 脚本（Agent 可以自动执行）
 
@@ -101,7 +101,7 @@ python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
 
 ## 文件说明
 
-- `SKILL.md`：六站阅读流程、材料核对与断点续读规则。
+- `SKILL.md`：材料准备、论文问答、图表与代码核验及笔记规则。
 - `scripts/fetch_paper.py`：准备 PDF、文本、LaTeX、图表与已核实的官方代码。
 - `scripts/extract_figures.py`：索引 LaTeX 原始图资源和表格环境，保留源码位置与宏上下文，不截图。
 - `references/notes-template.md`：按实际问答记录理解与证据的笔记模板。
@@ -110,4 +110,4 @@ python3 .agents/skills/paper-reading/scripts/extract_figures.py '论文名称'
 
 ## 许可与致谢
 
-本项目采用 [MIT License](LICENSE)，保留原项目的版权声明。感谢 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading) 提供的六站精读及多材料核对思路；此版本针对 Codex 本地项目的材料存储、交互和续读流程做了适配。
+本项目采用 [MIT License](LICENSE)，保留原项目的版权声明。感谢 [skJack/kelip-paper-reading](https://github.com/skJack/kelip-paper-reading) 在论文精读与多材料核对方面提供的思路；此版本针对 Codex 本地项目的材料存储、原图展示与交互问答做了适配。
